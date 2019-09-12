@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import yzy.zyuanyuz.routingdatasource.commons.constants.DataSourceConstants;
 
@@ -33,43 +34,9 @@ public class DataSourceConfig {
     return DruidDataSourceBuilder.create().build();
   }
 
-  @Bean("routingDataSource")
-  public DataSource routingDataSource() {
-    RoutingDataSource routingDataSource = new RoutingDataSource();
-    Map<Object, Object> dataSources = new HashMap<>();
-    dataSources.put(DataSourceConstants.DS_ONE, dataSourceOne());
-    dataSources.put(DataSourceConstants.DS_TWO, dataSourceTwo());
-    routingDataSource.setTargetDataSources(dataSources);
-
-    routingDataSource.setDefaultTargetDataSource(dataSources.get(DataSourceConstants.DS_ONE));
-    return routingDataSource;
-  }
-
   @Bean
   public PlatformTransactionManager transactionManager(
       @Qualifier("routingDataSource") DataSource routingDataSource) {
     return new DataSourceTransactionManager(routingDataSource);
-  }
-
-  public static class RoutingDataSource extends AbstractRoutingDataSource {
-    @Override
-    protected Object determineCurrentLookupKey() {
-      return RoutingDatasourceContext.getContextKey();
-    }
-  }
-
-  public static class RoutingDatasourceContext {
-    private RoutingDatasourceContext() {}
-
-    private static ThreadLocal<Object> dataSourceLocal =
-        ThreadLocal.withInitial(() -> DataSourceConstants.DS_ONE);
-
-    public static Object getContextKey() {
-      return dataSourceLocal.get();
-    }
-
-    public static void setDataSourceLocal(Object key) {
-      dataSourceLocal.set(key);
-    }
   }
 }
