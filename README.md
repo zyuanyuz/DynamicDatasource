@@ -1,3 +1,6 @@
 # RoutingDatasource
 
-现在的写法其实在内部有多余的数据源配置，多了两个数据源Bean，下一步需要先读取配置文件来用方法创建DataSource。
+Routing data source demo:
+
+- create data source with a util function or configuration in the config file such as application.yml
+- can update data source  int the program runtime
