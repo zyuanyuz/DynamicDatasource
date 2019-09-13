@@ -10,5 +10,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface TwoMapper {
-    int selectTest();
+  String selectDatabase();
 }

@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import yzy.zyuanyuz.routingdatasource.commons.constants.DataSourceConstants;
 import yzy.zyuanyuz.routingdatasource.config.DataSourceConfig;
+import yzy.zyuanyuz.routingdatasource.config.RoutingDataSource;
 
 /**
  * @author zyuanyuz
@@ -20,7 +21,7 @@ public class DataSourceAspect {
 
   @Before("oneAspect()")
   public void switchToDataSourceOne() {
-    DataSourceConfig.RoutingDatasourceContext.setDataSourceLocal(DataSourceConstants.DS_ONE);
+    RoutingDataSource.RoutingDatasourceContext.setDataSourceLocal(DataSourceConstants.DS_ONE);
   }
 
   @Pointcut("execution( * yzy.zyuanyuz.routingdatasource.mapper.two.*.*(..))")
@@ -28,6 +29,6 @@ public class DataSourceAspect {
 
   @Before("twoAspect()")
   public void switchToDataSourceTwo() {
-    DataSourceConfig.RoutingDatasourceContext.setDataSourceLocal(DataSourceConstants.DS_TWO);
+    RoutingDataSource.RoutingDatasourceContext.setDataSourceLocal(DataSourceConstants.DS_TWO);
   }
 }

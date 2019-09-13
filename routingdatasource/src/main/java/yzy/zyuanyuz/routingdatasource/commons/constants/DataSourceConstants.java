@@ -8,6 +8,4 @@ public abstract class DataSourceConstants {
   //use as the key in the map
   public static final String DS_ONE = "dsOne";
   public static final String DS_TWO = "dsTwo";
-
-  //
 }

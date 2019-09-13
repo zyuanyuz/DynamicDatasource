@@ -4,13 +4,13 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     druid:
       one:  #数据源1
-        url: jdbc:mysql://127.0.0.1:3306/zm_calendar?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        url: jdbc:mysql://127.0.0.1:3306/colodb?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
-        password: 2210
-      two: #数据源2
-        url: jdbc:mysql://172.0.0.1:3306/zm_calendar?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-        username: root
-        password: 2210
+        password: root
+#      two: #数据源2
+#        url: jdbc:mysql://127.0.0.1:3306/zm_calendar?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+#        username: root
+#        password: 2210
       initial-size: 10
       max-active: 100
       min-idle: 10
@@ -46,3 +46,6 @@ management:
   health:
     db:
       enabled: false
+
+server:
+  port: 9090

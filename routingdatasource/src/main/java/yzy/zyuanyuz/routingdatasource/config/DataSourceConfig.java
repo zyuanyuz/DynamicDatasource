@@ -6,14 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
-import yzy.zyuanyuz.routingdatasource.commons.constants.DataSourceConstants;
+import yzy.zyuanyuz.routingdatasource.util.CreateDataSourceUtil;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author zyuanyuz
@@ -21,17 +17,28 @@ import java.util.Map;
  */
 @Configuration
 public class DataSourceConfig {
-
+  /**
+   * create a datasource configured in config file
+   *
+   * @return
+   */
   @Bean
   @ConfigurationProperties(prefix = "spring.datasource.druid.one")
   public DataSource dataSourceOne() {
     return DruidDataSourceBuilder.create().build();
   }
 
+  /**
+   * second way to create a datasource with a function,can be init in the program runtime
+   *
+   * @return
+   */
   @Bean
-  @ConfigurationProperties(prefix = "spring.datasource.druid.two")
   public DataSource dataSourceTwo() {
-    return DruidDataSourceBuilder.create().build();
+    return CreateDataSourceUtil.createSimpleDataSource(
+        "jdbc:mysql://127.0.0.1:3306/devdb?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+        "root",
+        "2210");
   }
 
   @Bean

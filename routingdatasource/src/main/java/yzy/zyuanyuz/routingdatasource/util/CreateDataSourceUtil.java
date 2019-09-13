@@ -1,6 +1,7 @@
 package yzy.zyuanyuz.routingdatasource.util;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import yzy.zyuanyuz.routingdatasource.commons.domain.DataSourceConfigItem;
 
 import javax.sql.DataSource;
 
@@ -9,38 +10,40 @@ import javax.sql.DataSource;
  * @since 2019/9/12 22:58
  */
 public abstract class CreateDataSourceUtil {
-
   /**
-   * with lots of default datasource config,if you want a custom dataSource,please write a function
-   *
    * @param url
    * @param username
    * @param password
    * @return
    */
-  public static DataSource simpleDataSource(String url, String username, String password) {
+  public static DataSource createSimpleDataSource(String url, String username, String password) {
+    return createCustomeDataSource(DataSourceConfigItem.builder(url, username, password).build());
+  }
+
+  /**
+   * create a custom dataSource with parameters
+   *
+   * @param configItem the Object contain the parameters to init a dataSource
+   * @return
+   */
+  public static DataSource createCustomeDataSource(DataSourceConfigItem configItem) {
     DruidDataSource dataSource = new DruidDataSource();
-    dataSource.setUrl(url);
-    dataSource.setUsername(username);
-    dataSource.setPassword(password);
+    dataSource.setUrl(configItem.getUrl());
+    dataSource.setUsername(configItem.getUsername());
+    dataSource.setPassword(configItem.getPassword());
 
-    dataSource.setMaxActive(5);
-    dataSource.setMinIdle(1);
-    dataSource.setInitialSize(1);
-    dataSource.setMaxWait(600000);
-    dataSource.setTimeBetweenEvictionRunsMillis(60000L);
-    dataSource.setMinEvictableIdleTimeMillis(300000);
-    dataSource.setValidationQuery("select 1");
+    dataSource.setMaxActive(configItem.getMaxActive());
+    dataSource.setMinIdle(configItem.getMinIdle());
+    dataSource.setInitialSize(configItem.getInitialSize());
+    dataSource.setMaxWait(configItem.getMaxWait());
+    dataSource.setTimeBetweenEvictionRunsMillis(configItem.getTimeBetweenEvictionRunsMillis());
+    dataSource.setMinEvictableIdleTimeMillis(configItem.getMinEvictableIdleTimeMillis());
+    dataSource.setValidationQuery(configItem.getValidationQuery());
 
-    dataSource.setTestWhileIdle(true);
-    dataSource.setTestOnBorrow(true);
-    dataSource.setTestOnReturn(true);
+    dataSource.setTestWhileIdle(configItem.isTestWhileIdle());
+    dataSource.setTestOnBorrow(configItem.isTestOnBorrow());
+    dataSource.setTestOnReturn(configItem.isTestOnReturn());
 
     return dataSource;
   }
-
-  public static class DataSourceBuilder{
-
-  }
-
 }

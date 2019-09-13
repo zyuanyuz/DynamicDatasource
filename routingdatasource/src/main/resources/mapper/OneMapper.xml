@@ -5,7 +5,7 @@
 
 <!-- namespace为命名空间，应该是mapper接口的全称-->
 <mapper namespace="yzy.zyuanyuz.routingdatasource.mapper.one.OneMapper">
-    <select id="selectTest" resultType="int">
-        SELECT 1
+    <select id="selectDatabase" resultType="String">
+        SELECT DATABASE()
     </select>
 </mapper>
