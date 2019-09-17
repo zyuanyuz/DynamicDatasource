@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yzy.zyuanyuz.routingdatasource.config.RoutingDataSource;
-import yzy.zyuanyuz.routingdatasource.mapper.one.OneMapper;
-import yzy.zyuanyuz.routingdatasource.mapper.two.TwoMapper;
+import yzy.zyuanyuz.routingdatasource.service.OneService;
+import yzy.zyuanyuz.routingdatasource.service.TwoService;
 import yzy.zyuanyuz.routingdatasource.util.CreateDataSourceUtil;
 
 import static yzy.zyuanyuz.routingdatasource.commons.constants.DataSourceConstants.DS_ONE;
+import static yzy.zyuanyuz.routingdatasource.commons.constants.DataSourceConstants.DS_TWO;
 
 /**
  * @author zyuanyuz
@@ -16,20 +17,22 @@ import static yzy.zyuanyuz.routingdatasource.commons.constants.DataSourceConstan
  */
 @RestController
 public class HelloController {
-  @Autowired OneMapper oneMapper;
+  @Autowired OneService oneService;
 
-  @Autowired TwoMapper twoMapper;
+  @Autowired TwoService twoService;
 
   @Autowired RoutingDataSource routingDataSource;
 
   @GetMapping("/one")
   public String getOne() {
-    return oneMapper.selectDatabase();
+    RoutingDataSource.RoutingDatasourceContext.setDataSourceLocal(DS_ONE);
+    return oneService.dbName();
   }
 
   @GetMapping("/two")
   public String getTwo() {
-    return twoMapper.selectDatabase();
+    RoutingDataSource.RoutingDatasourceContext.setDataSourceLocal(DS_TWO);
+    return twoService.dbName();
   }
 
   @GetMapping("/testFreshDataSource")
@@ -39,7 +42,7 @@ public class HelloController {
         CreateDataSourceUtil.createSimpleDataSource(
             "jdbc:mysql://127.0.0.1:3306/devdb?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
             "root",
-            "root"));
-    return oneMapper.selectDatabase();
+            "2210"));
+    return oneService.dbName();
   }
 }

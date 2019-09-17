@@ -10,6 +10,8 @@ import javax.sql.DataSource;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static yzy.zyuanyuz.routingdatasource.config.DataSourceConfig.dataSourceTwo;
+
 /**
  * @author zyuanyuz
  * @since 2019/9/12 22:44
@@ -18,17 +20,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class RoutingDataSource extends AbstractRoutingDataSource implements InitializingBean {
   @Autowired DataSource dataSourceOne;
 
-  @Autowired DataSource dataSourceTwo;
-
   Map<Object, Object> dataSourcesMap;
 
   @Override
   public void afterPropertiesSet() {
     dataSourcesMap = new ConcurrentHashMap<>();
     dataSourcesMap.put(DataSourceConstants.DS_ONE, dataSourceOne);
-    dataSourcesMap.put(DataSourceConstants.DS_TWO, dataSourceTwo);
+    dataSourcesMap.put(DataSourceConstants.DS_TWO, dataSourceTwo());
     super.setTargetDataSources(dataSourcesMap);
-    // super.setDefaultTargetDataSource(dataSourcesMap.get(DataSourceConstants.DS_ONE));
+    //super.setDefaultTargetDataSource(dataSourcesMap.get(DataSourceConstants.DS_ONE));
     super.afterPropertiesSet();
   }
 
@@ -53,8 +53,8 @@ public class RoutingDataSource extends AbstractRoutingDataSource implements Init
   public static class RoutingDatasourceContext {
     private RoutingDatasourceContext() {}
 
-    private static ThreadLocal<Object> dataSourceLocal =
-        ThreadLocal.withInitial(() -> DataSourceConstants.DS_ONE);
+    private static ThreadLocal<Object> dataSourceLocal = new ThreadLocal<>();
+//        ThreadLocal.withInitial(() -> DataSourceConstants.DS_ONE);
 
     public static Object getContextKey() {
       return dataSourceLocal.get();

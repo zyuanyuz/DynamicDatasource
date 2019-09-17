@@ -3,9 +3,10 @@ package yzy.zyuanyuz.routingdatasource.aop;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
 import yzy.zyuanyuz.routingdatasource.commons.constants.DataSourceConstants;
-import yzy.zyuanyuz.routingdatasource.config.DataSourceConfig;
 import yzy.zyuanyuz.routingdatasource.config.RoutingDataSource;
 
 /**
@@ -15,20 +16,15 @@ import yzy.zyuanyuz.routingdatasource.config.RoutingDataSource;
 @Aspect
 @Component
 public class DataSourceAspect {
-
-  @Pointcut("execution( * yzy.zyuanyuz.routingdatasource.mapper.one.*.*(..))")
-  public void oneAspect() {}
-
-  @Before("oneAspect()")
+  @Before("execution( * yzy.zyuanyuz.routingdatasource.mapper.one.*.*(..))")
   public void switchToDataSourceOne() {
+    System.out.println("DS_ONE");
     RoutingDataSource.RoutingDatasourceContext.setDataSourceLocal(DataSourceConstants.DS_ONE);
   }
 
-  @Pointcut("execution( * yzy.zyuanyuz.routingdatasource.mapper.two.*.*(..))")
-  public void twoAspect() {}
-
-  @Before("twoAspect()")
+  @Before("execution( * yzy.zyuanyuz.routingdatasource.mapper.two.*.*(..))")
   public void switchToDataSourceTwo() {
+    System.out.println("DS_TWO");
     RoutingDataSource.RoutingDatasourceContext.setDataSourceLocal(DataSourceConstants.DS_TWO);
   }
 }
