@@ -2,9 +2,6 @@ package yzy.zyuanyuz.routingdatasource.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
 import yzy.zyuanyuz.routingdatasource.commons.constants.DataSourceConstants;
 import yzy.zyuanyuz.routingdatasource.config.RoutingDataSource;

@@ -35,12 +35,12 @@ public class HelloController {
     return twoService.dbName();
   }
 
-  @GetMapping("/testFreshDataSource")
+  @GetMapping("/fresh")
   public String testFreshDataSource() {
     routingDataSource.updateDataSource(
         DS_ONE,
         CreateDataSourceUtil.createSimpleDataSource(
-            "jdbc:mysql://127.0.0.1:3306/devdb?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+            "jdbc:mysql://127.0.0.1:3306/crashcource?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
             "root",
             "2210"));
     return oneService.dbName();

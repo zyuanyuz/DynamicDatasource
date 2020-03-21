@@ -13,8 +13,6 @@ import yzy.zyuanyuz.routingdatasource.util.CreateDataSourceUtil;
 
 import javax.sql.DataSource;
 
-import static yzy.zyuanyuz.routingdatasource.commons.constants.DataSourceConstants.DS_TWO;
-
 /**
  * @author zyuanyuz
  * @since 2019/8/31 15:06
@@ -39,7 +37,7 @@ public class DataSourceConfig {
    */
   public static DataSource dataSourceTwo() {
     return CreateDataSourceUtil.createSimpleDataSource(
-        "jdbc:mysql://127.0.0.1:3306/devdb?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+        "jdbc:mysql://127.0.0.1:3306/saexperiment?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
         "root",
         "2210");
   }

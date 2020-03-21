@@ -16,9 +16,8 @@ public class OneServiceImpl implements OneService {
     OneMapper oneMapper;
 
     @Override
-    @Transactional
     public String dbName() {
-        oneMapper.selectDatabase();
+        //oneMapper.selectDatabase();
         return oneMapper.selectDatabase();
     }
 }

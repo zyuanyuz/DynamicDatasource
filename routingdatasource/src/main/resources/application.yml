@@ -3,11 +3,11 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     druid:
-      one:  #数据源1
+      one:  #datasource1
         url: jdbc:mysql://127.0.0.1:3306/zm_calendar?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
         password: 2210
-#      two: #数据源2
+#      two: #datasource2
 #        url: jdbc:mysql://127.0.0.1:3306/zm_calendar?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 #        username: root
 #        password: 2210
